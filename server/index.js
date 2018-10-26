@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require("helmet");
 const knex = require("knex");
 const knexConfig = require("./knexfile.js");
 const db = knex(knexConfig.development);
@@ -7,11 +8,11 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const port = 6000;
 const cors = require("cors");
-
+const { authenticate } = require("./authenitcate");
+const jwtSecret = require("./secret/keys.js").jwtKey;
+server.use(helmet());
 server.use(cors());
 server.use(express.json());
-
-const jwtSecret = "thisisanappmadebypatrick";
 
 function generateToken(user) {
 	const payload = {
@@ -20,15 +21,15 @@ function generateToken(user) {
 	};
 
 	const JwtOptions = {
-		expiresIn: "10m"
+		expiresIn: "2h"
 	};
 
 	return jwt.sign(payload, jwtSecret, JwtOptions);
 }
 //Register and login for Users tables / routes
 
-//GET req to view all the users (needs to be protected later)
-server.get("/users", (req, res) => {
+//GET req to view all the users (added authenticate middleware for protection)
+server.get("/users", authenticate, (req, res) => {
 	db("users")
 		.then(users => {
 			res.status(200).json(users);
@@ -37,8 +38,8 @@ server.get("/users", (req, res) => {
 			res.status(400).json({ error: "cannot get users" });
 		});
 });
-// GET req that bundles reviews the user has and display them in an array
-server.get("/users/:id", (req, res) => {
+// GET req that bundles reviews the user has and display them in an array  (added authenticate middleware for protection)
+server.get("/users/:id", authenticate, (req, res) => {
 	const user_id = req.params.id;
 	db("users")
 		.where({ id: user_id })
@@ -61,7 +62,7 @@ server.post("/register", (req, res) => {
 		.insert(credentials)
 		.then(ids => {
 			const token = generateToken({ username: credentials.username });
-			res.status(201).json({ ids: ids[0] });
+			res.status(201).json({ ids: ids[0], token });
 		})
 		.catch(err => {
 			console.log(err);
@@ -77,7 +78,8 @@ server.post("/login", (req, res) => {
 		.first()
 		.then(user => {
 			if (user && bcrypt.compareSync(creds.password, user.password)) {
-				res.status(200).json({ welcome: user.username });
+				const token = generateToken(user);
+				res.status(200).json({ welcome: user.username, token });
 			} else {
 				res
 					.status(500)
