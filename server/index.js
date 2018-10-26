@@ -6,7 +6,7 @@ const db = knex(knexConfig.development);
 const server = express();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const port = 6000;
+const port = 3300;
 const cors = require("cors");
 const { authenticate } = require("./authenitcate");
 const jwtSecret = require("./secret/keys.js").jwtKey;
@@ -85,6 +85,20 @@ server.post("/login", (req, res) => {
 					.status(500)
 					.json({ error: "Wrong Username and/or Password, please try again" });
 			}
+		});
+});
+//Puts the image url in profile_pic
+server.put("/users/:id/profilepic", authenticate, (req, res) => {
+	const id = req.params.id;
+	const { imageUrl } = req.body;
+	db("users")
+		.where({ id: id })
+		.update({ profile_pic: imageUrl })
+		.then(user => {
+			res.status(200).json({ imageurl: imageUrl });
+		})
+		.catch(err => {
+			res.status(400).json({ error: "could not add image" });
 		});
 });
 

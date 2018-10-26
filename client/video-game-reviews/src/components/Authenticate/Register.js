@@ -24,7 +24,7 @@ class Register extends Component {
 			username: this.state.username,
 			password: this.state.password
 		};
-		axios.post("http://localhost:3300/api/register", user).then(res => {
+		axios.post("http://localhost:3300/register", user).then(res => {
 			console.log(res);
 			if (res.data.id) {
 				this.props.history.push("/home");
