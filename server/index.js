@@ -44,7 +44,7 @@ server.post("/register", (req, res) => {
 		.insert(credentials)
 		.then(ids => {
 			const token = generateToken({ username: credentials.username });
-			res.status(201).json({ ids: ids[0], token });
+			res.status(201).json({ ids: ids[0] });
 		})
 		.catch(err => {
 			console.log(err);
