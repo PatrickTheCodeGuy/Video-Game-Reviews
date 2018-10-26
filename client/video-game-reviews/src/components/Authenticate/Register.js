@@ -47,6 +47,7 @@ class Register extends Component {
 							name="username"
 							id="idusername"
 							placeholder="Username"
+							required
 						/>
 					</FormGroup>
 					<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
@@ -58,6 +59,7 @@ class Register extends Component {
 							name="password"
 							id="examplePassword"
 							placeholder="Password"
+							required
 						/>
 					</FormGroup>
 					<Button onClick={this.onSubmit}>Register</Button>

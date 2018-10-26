@@ -47,6 +47,7 @@ class Login extends Component {
 							name="username"
 							id="idusername"
 							placeholder="Username"
+							required
 						/>
 					</FormGroup>
 					<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
@@ -58,6 +59,7 @@ class Login extends Component {
 							name="password"
 							id="examplePassword"
 							placeholder="Password"
+							required
 						/>
 					</FormGroup>
 					<Button onClick={this.onSubmit}>Log In</Button>
