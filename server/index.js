@@ -79,7 +79,7 @@ server.post("/login", (req, res) => {
 		.then(user => {
 			if (user && bcrypt.compareSync(creds.password, user.password)) {
 				const token = generateToken(user);
-				res.status(200).json({ welcome: user.username, token });
+				res.status(200).json({ welcome: user.username, token: token });
 			} else {
 				res
 					.status(500)
@@ -99,6 +99,16 @@ server.put("/users/:id/profilepic", authenticate, (req, res) => {
 		})
 		.catch(err => {
 			res.status(400).json({ error: "could not add image" });
+		});
+});
+
+server.delete("/users/:id", authenticate, (req, res) => {
+	const id = req.params.reviewid;
+	db("users")
+		.where({ id: id })
+		.del()
+		.then(deleted => {
+			res.status(200).json(deleted);
 		});
 });
 
@@ -152,6 +162,38 @@ server.post("/review/:id", (req, res) => {
 	console.log(review);
 	db("video games")
 		.insert(review)
+		.then(review => {
+			res.status(200).json(review);
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(400).json({ error: "could not create review" });
+		});
+});
+server.put("/reviews/:reviewid", authenticate, (req, res) => {
+	const id = req.params.id;
+	const {
+		name,
+		reviewText,
+		rating,
+		release,
+		helpful,
+		main_photo,
+		extra_photos
+	} = req.body;
+	const review = {
+		user_id,
+		name,
+		reviewText,
+		rating,
+		release,
+		helpful,
+		main_photo,
+		extra_photos
+	};
+	db("video games")
+		.where({ id })
+		.update(review)
 		.then(review => {
 			res.status(200).json(review);
 		})
