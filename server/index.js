@@ -101,7 +101,7 @@ server.put("/users/:id/profilepic", authenticate, (req, res) => {
 			res.status(400).json({ error: "could not add image" });
 		});
 });
-
+//Will DELETE user when given user id.  Need to check if deleting user cascades their reviews. (deletes their reviews)
 server.delete("/users/:id", authenticate, (req, res) => {
 	const id = req.params.reviewid;
 	db("users")
@@ -170,6 +170,7 @@ server.post("/review/:id", (req, res) => {
 			res.status(400).json({ error: "could not create review" });
 		});
 });
+//updates the reviews. Front end will need to populate the respective forms with the previous data, and then submit new data.
 server.put("/reviews/:reviewid", authenticate, (req, res) => {
 	const id = req.params.id;
 	const {
