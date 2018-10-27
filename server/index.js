@@ -103,6 +103,8 @@ server.put("/users/:id/profilepic", authenticate, (req, res) => {
 });
 
 //Video Game review routes should go below here
+
+//get an array of all the reviews made, regardless of who made it
 server.get("/review", (req, res) => {
 	db("video games")
 		.then(review => {
@@ -112,6 +114,7 @@ server.get("/review", (req, res) => {
 			res.status(400).json({ error: "cannot get users" });
 		});
 });
+//find review by id
 server.get("/review/:id", authenticate, (req, res) => {
 	const id = req.params.id;
 	db("video games")
@@ -121,6 +124,7 @@ server.get("/review/:id", authenticate, (req, res) => {
 			res.status(200).json(review);
 		});
 });
+//create a new review and bind the id of the user table to the review user_id foriegn key
 server.post("/review/:id", (req, res) => {
 	const id = req.params.id;
 	console.log(id);
@@ -156,6 +160,7 @@ server.post("/review/:id", (req, res) => {
 			res.status(400).json({ error: "could not create review" });
 		});
 });
+//Delete request by review ID, will delete the review regardless of user id
 server.delete("/review/:reviewid", authenticate, (req, res) => {
 	const id = req.params.reviewid;
 	db("video games")
