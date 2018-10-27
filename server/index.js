@@ -156,6 +156,15 @@ server.post("/review/:id", (req, res) => {
 			res.status(400).json({ error: "could not create review" });
 		});
 });
+server.delete("/review/:reviewid", authenticate, (req, res) => {
+	const id = req.params.reviewid;
+	db("video games")
+		.where({ id: id })
+		.del()
+		.then(deleted => {
+			res.status(200).json(deleted);
+		});
+});
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
 });
