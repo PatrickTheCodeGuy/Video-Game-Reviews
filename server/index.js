@@ -103,7 +103,59 @@ server.put("/users/:id/profilepic", authenticate, (req, res) => {
 });
 
 //Video Game review routes should go below here
-
+server.get("/review", (req, res) => {
+	db("video games")
+		.then(review => {
+			res.status(200).json(review);
+		})
+		.catch(err => {
+			res.status(400).json({ error: "cannot get users" });
+		});
+});
+server.get("/review/:id", authenticate, (req, res) => {
+	const id = req.params.id;
+	db("video games")
+		.where({ id: id })
+		.first()
+		.then(review => {
+			res.status(200).json(review);
+		});
+});
+server.post("/review/:id", (req, res) => {
+	const id = req.params.id;
+	console.log(id);
+	const user_id = id;
+	console.log(user_id);
+	const {
+		name,
+		reviewText,
+		rating,
+		release,
+		helpful,
+		main_photo,
+		extra_photos
+	} = req.body;
+	const review = {
+		user_id,
+		name,
+		reviewText,
+		rating,
+		release,
+		helpful,
+		main_photo,
+		extra_photos
+	};
+	console.log(review);
+	db("video games")
+		.insert(review)
+		.then(review => {
+			res.status(200).json(review);
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(400).json({ error: "could not create review" });
+		});
+});
 server.listen(port, () => {
 	console.log(`Server now listening on Port ${port}`);
 });
