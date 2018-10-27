@@ -112,6 +112,21 @@ server.delete("/users/:id", authenticate, (req, res) => {
 		});
 });
 
+//if above delete doesnt work try this
+// server.delete("/users/:id", authenticate, (req, res) => {
+// 	const id = req.params.reviewid;
+// 	db("users")
+// 		.where({ id: id })
+// 		.del()
+// 		.then(deleted => {
+// 			db("video games")
+// 			.where({ user_id: id })
+// 			.del()
+// 			.then(deleted => {
+// 			res.status(200).json(deleted);
+// 		});
+// });
+
 //Video Game review routes should go below here
 
 //get an array of all the reviews made, regardless of who made it
