@@ -25,6 +25,7 @@ class Register extends Component {
 			username: this.state.username,
 			password: this.state.password
 		};
+
 		axios.post("http://localhost:3300/register", user).then(res => {
 			console.log(res);
 			if (res.data.id) {
@@ -45,11 +46,13 @@ class Register extends Component {
 							Username:
 						</Label>
 						<Input
+							maxLength="20"
 							type="text"
 							name="username"
 							id="idusername"
 							placeholder="Username"
 							required
+							title="20 characters max"
 						/>
 					</FormGroup>
 					<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
@@ -57,11 +60,14 @@ class Register extends Component {
 							Password:
 						</Label>
 						<Input
+							minLength="5"
+							pattern=".{5,}"
 							type="password"
 							name="password"
 							id="examplePassword"
 							placeholder="Password"
 							required
+							title="5 characters minimum"
 						/>
 					</FormGroup>
 					<Button className="register-submit" onClick={this.onSubmit}>
