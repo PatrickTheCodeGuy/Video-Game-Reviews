@@ -1,0 +1,92 @@
+@media (min-width: 400px) {
+	html {
+		background: #4d009b;
+
+		min-width: 400px;
+		max-height: 640px;
+	}
+	#root {
+		background: #4d009b;
+		min-width: 400px;
+		width: 100%;
+
+		max-height: 640px;
+	}
+	.header {
+		font-family: Roboto;
+		font-style: normal;
+		font-weight: normal;
+		line-height: normal;
+		font-size: 70px;
+		text-align: center;
+
+		color: #ffffff;
+	}
+	.Register {
+		position: relative;
+		max-width: 400px;
+		width: 100%;
+	}
+	.form-inline {
+		margin-left: 9%;
+	}
+	#idusername {
+		width: 325px;
+		height: 48px;
+
+		background: #ffffff;
+		box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.75);
+		border-radius: 20px;
+		margin-bottom: 30px;
+	}
+	#examplePassword {
+		width: 325px;
+		height: 48px;
+
+		background: #ffffff;
+		box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.75);
+		border-radius: 20px;
+	}
+	.mr-sm-2 {
+		font-family: Roboto;
+		font-style: normal;
+		font-weight: 500;
+		line-height: normal;
+		font-size: 18px;
+
+		color: #ffffff;
+	}
+	.btn-secondary {
+		background-color: #00c11f !important;
+		border: 1px solid #1abc00;
+	}
+	.register-submit.btn.btn-secondary {
+		position: absolute;
+		width: 125px;
+		height: 48px;
+		left: 118px;
+		top: 317px;
+
+		background-color: #00c11f;
+		border: 1px solid #1abc00;
+		box-sizing: border-box;
+		box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.75);
+		border-radius: 0px;
+	}
+	.already-login {
+		position: absolute;
+		width: 325px;
+		height: 30px;
+		left: 18px;
+		top: 419px;
+
+		font-family: Roboto;
+		font-style: italic;
+		font-weight: normal;
+		line-height: normal;
+		font-size: 13px;
+		text-align: center;
+
+		color: #ffffff;
+	}
+}

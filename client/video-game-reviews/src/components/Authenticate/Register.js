@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "./register.css";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
@@ -37,6 +38,7 @@ class Register extends Component {
 	render() {
 		return (
 			<div className="Register">
+				<h1 className="header">VGReviews</h1>
 				<Form onChange={this.handleChange} inline>
 					<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
 						<Label for="exampleEmail" className="mr-sm-2">
@@ -62,10 +64,12 @@ class Register extends Component {
 							required
 						/>
 					</FormGroup>
-					<Button onClick={this.onSubmit}>Register</Button>
+					<Button className="register-submit" onClick={this.onSubmit}>
+						Sign Up
+					</Button>
 				</Form>
 				<>
-					<h6>
+					<h6 className="already-login">
 						Already signed up? Click <Link to="/login">Here</Link> to login.
 					</h6>
 				</>

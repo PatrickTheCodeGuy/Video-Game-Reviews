@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "./login.css";
 import { Link } from "react-router-dom";
-
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 class Login extends Component {
@@ -37,6 +37,7 @@ class Login extends Component {
 	render() {
 		return (
 			<div className="Register">
+				<h1 className="header">VGReviews</h1>
 				<Form onChange={this.handleChange} inline>
 					<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
 						<Label for="exampleEmail" className="mr-sm-2">
@@ -62,10 +63,12 @@ class Login extends Component {
 							required
 						/>
 					</FormGroup>
-					<Button onClick={this.onSubmit}>Log In</Button>
+					<Button className="register-submit" onClick={this.onSubmit}>
+						Log In
+					</Button>
 				</Form>
 				<>
-					<h6>
+					<h6 className="already-login">
 						Need to Register? Click <Link to="/register">Here</Link> to
 						register.
 					</h6>
