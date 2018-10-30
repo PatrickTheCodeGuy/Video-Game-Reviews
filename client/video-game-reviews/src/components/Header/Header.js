@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import hamburger from "../../icons8-menu-filled-100.png";
+
 import "../../App.css";
 import { Link } from "react-router-dom";
 import {

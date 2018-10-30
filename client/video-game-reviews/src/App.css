@@ -34,9 +34,9 @@
 	.mr-auto.navbar-brand {
 		font-family: Roboto;
 		font-style: normal;
-		font-weight: normal;
+		font-weight: 300;
 		line-height: normal;
-		font-size: 33px;
+		font-size: 36px;
 
 		color: #ffffff !important;
 	}
@@ -54,7 +54,7 @@
 		margin-left: 15%;
 	}
 	.navbar-light .navbar-toggler {
-		border-color: rgb(255, 255, 255) !important;
+		border-color: rgb(255, 255, 255, 0) !important;
 	}
 	.navbar-light .navbar-toggler-icon {
 		color: rgb(255, 255, 255) !important;
