@@ -29,7 +29,7 @@ function generateToken(user) {
 //Register and login for Users tables / routes
 
 //GET req to view all the users (added authenticate middleware for protection)
-server.get("/users", authenticate, (req, res) => {
+server.get("/users", (req, res) => {
 	db("users")
 		.then(users => {
 			res.status(200).json(users);
@@ -39,7 +39,7 @@ server.get("/users", authenticate, (req, res) => {
 		});
 });
 // GET req that bundles reviews the user has and display them in an array  (added authenticate middleware for protection)
-server.get("/users/:id", authenticate, (req, res) => {
+server.get("/users/:id", (req, res) => {
 	const user_id = req.params.id;
 	db("users")
 		.where({ id: user_id })

@@ -1,13 +1,21 @@
 .App {
 	width: 100vw;
-	height: 100vh;
+
 	max-width: 1000px;
 	margin: 0 auto;
 }
 .Register {
 	width: 100%;
-	max-width: 1000px;
+
 	margin: 200px auto;
+	background: #4d009b;
+}
+#root {
+	background: #ecedf2;
+}
+#body {
+	background: #4d009b;
+	height: 100vh;
 }
 
 @media (min-width: 400px) {
@@ -53,11 +61,15 @@
 	.navbar {
 		background: #4d009b;
 	}
+	.Home {
+		height: 100%;
+	}
 	.Header {
 		background: #4d009b;
 	}
 	.Home-page {
 		background: #ecedf2;
+		height: 100vh;
 	}
 	html {
 		width: 100%;

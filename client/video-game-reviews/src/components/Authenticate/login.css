@@ -1,15 +1,11 @@
 @media (min-width: 400px) {
 	html {
 		background: #4d009b;
-
-		min-width: 400px;
-		min-height: 640px;
+		height: 100%;
 	}
 	#root {
-		min-width: 400px;
 		width: 100%;
-
-		min-height: 640px;
+		height: 100%;
 	}
 	.header {
 		font-family: Roboto;
@@ -23,7 +19,7 @@
 	}
 	.Register {
 		position: relative;
-		max-width: 400px;
+		height: 1000px;
 		width: 100%;
 	}
 	.form-inline {

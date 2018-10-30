@@ -17,19 +17,26 @@ class Card extends Component {
 		axios
 			.get(`http://localhost:3300/users/${this.props.user_id}`)
 			.then(user => {
-				const { username, profile_pic } = user;
+				const { username, profile_pic } = user.data;
 				this.setState({ userphoto: profile_pic, username: username });
 			})
 			.catch(err => console.log(err));
 	}
 
 	render(props) {
+		console.log(this.state);
 		return (
-			<Link className="review-link" to="#">
+			<Link style={{ textDecoration: "none" }} className="review-link" to="#">
 				<div className="card">
 					<div className="title">
 						<div className="rating-rating">
 							<p className="rating">{this.props.rating}</p>
+						</div>
+						<div className="user-images">
+							<img className="user-img img" src={this.state.userphoto} />
+						</div>
+						<div className="user-name">
+							<p className="name">{this.state.username}</p>
 						</div>
 
 						<img className="main-photo" src={this.props.main_photo} />
