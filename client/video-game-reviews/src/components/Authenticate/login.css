@@ -3,14 +3,13 @@
 		background: #4d009b;
 
 		min-width: 400px;
-		max-height: 640px;
+		min-height: 640px;
 	}
 	#root {
-		background: #4d009b;
 		min-width: 400px;
 		width: 100%;
 
-		max-height: 640px;
+		min-height: 640px;
 	}
 	.header {
 		font-family: Roboto;

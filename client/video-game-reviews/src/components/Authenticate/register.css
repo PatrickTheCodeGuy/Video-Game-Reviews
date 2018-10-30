@@ -1,15 +1,12 @@
 @media (max-width: 400px) {
 	html {
-		background: #4d009b;
-		width: 100vw;
-		max-height: 640px;
-		max-width: 400px;
+		width: 100%;
+
+		min-width: 400px;
 	}
 	#root {
-		background: #4d009b;
-		max-width: 400px;
+		min-width: 400px;
 		width: 100%;
-		max-height: 640px;
 	}
 	.header {
 		font-family: Roboto;
