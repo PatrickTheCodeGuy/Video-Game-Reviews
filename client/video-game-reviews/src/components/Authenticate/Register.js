@@ -28,7 +28,7 @@ class Register extends Component {
 
 		axios.post("http://localhost:3300/register", user).then(res => {
 			console.log(res);
-			if (res.data.id) {
+			if (res.data.ids) {
 				this.props.history.push("/home");
 			} else {
 				this.props.history.push("/register");
