@@ -76,7 +76,7 @@ class Register extends Component {
 				</Form>
 				<>
 					<h6 className="already-login">
-						Already signed up? Click <Link to="/login">Here</Link> to login.
+						Already signed up? Click <Link to="/">Here</Link> to login.
 					</h6>
 				</>
 			</div>

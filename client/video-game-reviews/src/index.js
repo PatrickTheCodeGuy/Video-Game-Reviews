@@ -12,9 +12,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 ReactDOM.render(
 	<Router>
 		<div>
-			<Route exact path="/" component={App} />
 			<Route path="/register" component={Register} />
-			<Route path="/login" component={Login} />
+			<Route exact path="/" component={Login} />
 			<Route path="/home" component={Home} />
 		</div>
 	</Router>,

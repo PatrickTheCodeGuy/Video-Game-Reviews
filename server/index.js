@@ -16,7 +16,8 @@ server.use(express.json());
 
 function generateToken(user) {
 	const payload = {
-		...user,
+		id: user.id,
+
 		hello: "Hello!"
 	};
 
@@ -62,7 +63,11 @@ server.post("/register", (req, res) => {
 		.insert(credentials)
 		.then(ids => {
 			const token = generateToken({ username: credentials.username });
-			res.status(201).json({ ids: ids[0], token });
+			res
+				.status(201)
+				.cookie("tokenkey", token, { maxAge: 9000 })
+				.header("Authorization", token)
+				.json({ ids: ids[0], token, id: ids });
 		})
 		.catch(err => {
 			console.log(err);
@@ -79,7 +84,12 @@ server.post("/login", (req, res) => {
 		.then(user => {
 			if (user && bcrypt.compareSync(creds.password, user.password)) {
 				const token = generateToken(user);
-				res.status(200).json({ welcome: user.username, token: token });
+
+				res
+					.status(200)
+					.cookie("tokenkey", token, { maxAge: 9000 })
+					.header("Authorization", token)
+					.json({ welcome: user.username, token: token, id: user.id });
 			} else {
 				res
 					.status(500)

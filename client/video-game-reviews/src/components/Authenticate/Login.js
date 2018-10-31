@@ -25,11 +25,12 @@ class Login extends Component {
 			password: this.state.password
 		};
 		axios.post("http://localhost:3300/login", user).then(res => {
-			console.log(res);
 			if (res.data.welcome !== "") {
+				localStorage.setItem("user", JSON.stringify(res.data));
+				console.log(res);
 				this.props.history.push("/home");
 			} else {
-				this.props.history.push("/register");
+				this.props.history.push("/");
 			}
 		});
 	};
