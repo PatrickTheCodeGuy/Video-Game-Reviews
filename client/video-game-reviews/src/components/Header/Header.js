@@ -20,15 +20,19 @@ class Header extends Component {
 		this.toggleNavbar = this.toggleNavbar.bind(this);
 		this.state = {
 			collapsed: true,
-			userimg: ""
+			userimg: "",
+			id: null
 		};
 	}
 
 	componentDidMount() {
-		this.setState({
-			userimg:
-				"https://images-na.ssl-images-amazon.com/images/I/71XdzboDLOL._UL1500_.jpg"
-		});
+		let user = JSON.parse(localStorage.getItem("user"));
+		axios
+			.get(`http://localhost:3300/users/${user.id}`)
+			.then(users => {
+				this.setState({ userimg: users.data.user.profile_pic });
+			})
+			.catch(err => console.log(err));
 	}
 
 	toggleNavbar() {
@@ -59,7 +63,7 @@ class Header extends Component {
 									</NavLink>
 								</NavItem>
 								<NavItem>
-									<NavLink className="navlinks" href="/settings/:userid">
+									<NavLink className="navlinks" href="/settings">
 										Settings
 									</NavLink>
 								</NavItem>

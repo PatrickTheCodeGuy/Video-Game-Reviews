@@ -17,7 +17,7 @@ class Card extends Component {
 		axios
 			.get(`http://localhost:3300/users/${this.props.user_id}`)
 			.then(user => {
-				const { username, profile_pic } = user.data;
+				const { username, profile_pic } = user.data.user;
 				this.setState({ userphoto: profile_pic, username: username });
 			})
 			.catch(err => console.log(err));

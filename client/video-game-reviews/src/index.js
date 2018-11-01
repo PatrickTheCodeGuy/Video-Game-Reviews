@@ -8,6 +8,7 @@ import Home from "./components/Home/Home";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import Settings from "./components/Settings/Settings";
 
 ReactDOM.render(
 	<Router>
@@ -15,6 +16,7 @@ ReactDOM.render(
 			<Route path="/register" component={Register} />
 			<Route exact path="/" component={Login} />
 			<Route path="/home" component={Home} />
+			<Route path="/settings" component={Settings} />
 		</div>
 	</Router>,
 	document.getElementById("root")

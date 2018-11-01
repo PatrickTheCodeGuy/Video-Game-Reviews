@@ -39,14 +39,26 @@ server.get("/users", (req, res) => {
 			res.status(400).json({ error: "cannot get users" });
 		});
 });
-// GET req that bundles reviews the user has and display them in an array  (added authenticate middleware for protection)
+//GET request to get just the user
 server.get("/users/:id", (req, res) => {
-	const user_id = req.params.id;
+	const id = req.params.id;
 	db("users")
-		.where({ id: user_id })
+		.where({ id: id })
+		.then(user => {
+			res.status(200).json({ user: user[0] });
+		})
+		.catch(err => {
+			res.status(400).json({ err: "COuld not find that user" });
+		});
+});
+// GET req that bundles reviews the user has and display them in an array  (added authenticate middleware for protection)
+server.get("/users/videogames/:id", (req, res) => {
+	const id = req.params.id;
+	db("users")
+		.where({ id: id })
 		.then(user => {
 			db("video games")
-				.where({ user_id })
+				.where({ user_id: id })
 				.then(review => {
 					user[0].reviews = review;
 					res.status(200).json(user[0]);
@@ -72,6 +84,29 @@ server.post("/register", (req, res) => {
 		.catch(err => {
 			console.log(err);
 			res.status(500).json({ error: "Could not create User" });
+		});
+});
+server.put("/users/:id", (req, res) => {
+	const id = req.body.id;
+	console.log(id);
+	const credentials = req.body;
+	console.log(credentials);
+	const hash = bcrypt.hashSync(credentials.password, 15);
+	credentials.password = hash;
+	db("users")
+		.where({ id: id })
+		.update({
+			username: credentials.username,
+			password: credentials.password,
+			profile_pic: credentials.profile_pic
+		})
+		.then(ids => {
+			const token = generateToken({ username: credentials.username });
+			res.status(200).json({ token: token, id: id });
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({ error: "Could not update User" });
 		});
 });
 //POST req to login the user
