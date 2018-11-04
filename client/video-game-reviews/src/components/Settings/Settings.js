@@ -11,7 +11,8 @@ class Settings extends Component {
 		this.state = {
 			id: 0,
 			username: "",
-			password: "",
+			oldpassword: "",
+			newpassword: "",
 			profile_pic: ""
 		};
 	}
@@ -25,7 +26,6 @@ class Settings extends Component {
 				this.setState({
 					id: user.data.user.id,
 					username: user.data.user.username,
-					password: user.data.user.password,
 					profile_pic: user.data.user.profile_pic
 				});
 			})
@@ -43,14 +43,13 @@ class Settings extends Component {
 		const user = {
 			id: this.state.id,
 			username: this.state.username,
-			password: this.state.password,
+			password: this.state.oldpassword,
+			newpassword: this.state.newpassword,
 			profile_pic: this.state.profile_pic
 		};
 		axios.put(`http://localhost:3300/users/${user.id}`, user).then(res => {
 			if (res.data.welcome !== "") {
 				localStorage.setItem("user", JSON.stringify(res.data));
-
-				console.log(res);
 				this.props.history.push("/home");
 			} else {
 				this.props.history.push("/settings");
@@ -79,15 +78,15 @@ class Settings extends Component {
 						</FormGroup>
 						<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
 							<Label for="examplePassword" className="mr-sm-2">
-								Password:
+								Old Password:
 							</Label>
-							<Input
-								type="password"
-								name="password"
-								id="newPass"
-								value={this.state.password}
-								required
-							/>
+							<Input type="password" name="oldpassword" id="newPass" required />
+						</FormGroup>
+						<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+							<Label for="examplePassword" className="mr-sm-2">
+								New Password:
+							</Label>
+							<Input type="password" name="newpassword" required />
 						</FormGroup>
 						<FormGroup className="mb-2 mr-sm-2 mb-sm-0">
 							<Label for="examplePassword" className="mr-sm-2">

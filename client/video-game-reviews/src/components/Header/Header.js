@@ -3,6 +3,7 @@ import axios from "axios";
 
 import "../../App.css";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import {
 	Collapse,
 	Navbar,
@@ -35,6 +36,18 @@ class Header extends Component {
 			.catch(err => console.log(err));
 	}
 
+	loggedOut() {
+		const token = localStorage.getItem("token");
+		const user = localStorage.getItem("user");
+
+		if (token !== null || user !== null) {
+			localStorage.removeItem("token");
+			localStorage.removeItem("user");
+		} else {
+			console.log("You shouldnt be here, bug report");
+		}
+	}
+
 	toggleNavbar() {
 		this.setState({
 			collapsed: !this.state.collapsed
@@ -58,6 +71,11 @@ class Header extends Component {
 						<Collapse isOpen={!this.state.collapsed} navbar>
 							<Nav navbar>
 								<NavItem>
+									<NavLink className="navlinks" href="/review/new">
+										+ New Review
+									</NavLink>
+								</NavItem>
+								<NavItem>
 									<NavLink className="navlinks" href="/reviews/:userid">
 										My Reviews
 									</NavLink>
@@ -68,7 +86,11 @@ class Header extends Component {
 									</NavLink>
 								</NavItem>
 								<NavItem>
-									<NavLink className="navlinks" href="/logout">
+									<NavLink
+										onClick={this.loggedOut}
+										className="navlinks logout"
+										href="/"
+									>
 										Logout
 									</NavLink>
 								</NavItem>

@@ -8,7 +8,6 @@ import CardContainer from "../GameCards/CardContainer";
 
 class Home extends Component {
 	render() {
-		console.log(this.props);
 		return (
 			<div className="Home">
 				<div className="Header-container">

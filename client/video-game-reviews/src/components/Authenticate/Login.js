@@ -27,6 +27,7 @@ class Login extends Component {
 		axios.post("http://localhost:3300/login", user).then(res => {
 			if (res.data.welcome !== "") {
 				localStorage.setItem("user", JSON.stringify(res.data));
+				localStorage.setItem("token", res.data.token);
 				console.log(res);
 				this.props.history.push("/home");
 			} else {

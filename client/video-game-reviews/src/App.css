@@ -58,6 +58,9 @@
 	.navbar-nav {
 		padding-left: 70% !important;
 	}
+	.navlinks.logout {
+		cursor: pointer;
+	}
 	.navbar {
 		background: #4d009b;
 	}

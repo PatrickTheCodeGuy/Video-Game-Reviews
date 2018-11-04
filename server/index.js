@@ -86,27 +86,40 @@ server.post("/register", (req, res) => {
 			res.status(500).json({ error: "Could not create User" });
 		});
 });
+//Old password to new Password Route for settings
 server.put("/users/:id", (req, res) => {
 	const id = req.body.id;
-	console.log(id);
 	const credentials = req.body;
-	console.log(credentials);
-	const hash = bcrypt.hashSync(credentials.password, 15);
-	credentials.password = hash;
+	console.log(credentials.password);
 	db("users")
-		.where({ id: id })
-		.update({
-			username: credentials.username,
-			password: credentials.password,
-			profile_pic: credentials.profile_pic
-		})
-		.then(ids => {
-			const token = generateToken({ username: credentials.username });
-			res.status(200).json({ token: token, id: id });
-		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json({ error: "Could not update User" });
+		.where({ username: credentials.username })
+		.first()
+		.then(user => {
+			//Checking old password to verify it is correct
+			if (user && bcrypt.compareSync(credentials.password, user.password)) {
+				//Hashing the new password to be stored in DB
+				const hash = bcrypt.hashSync(credentials.newpassword, 15);
+				credentials.newpassword = hash;
+				db("users")
+					.where({ id: id })
+					.update({
+						username: credentials.username,
+						password: credentials.newpassword,
+						profile_pic: credentials.profile_pic
+					})
+					.then(ids => {
+						const token = generateToken({ username: credentials.username });
+						res.status(200).json({ token: token, id: id });
+					})
+					.catch(err => {
+						console.log(err);
+						res.status(500).json({ error: "Could not update User" });
+					});
+			} else {
+				res
+					.status(700)
+					.json({ error: "Wrong Username and/or Password, please try again" });
+			}
 		});
 });
 //POST req to login the user
